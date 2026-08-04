@@ -4,5 +4,5 @@ pages_build_output_dir = "public"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "mako-secretary-db"
-database_id = "REPLACE_WITH_YOUR_DATABASE_ID"
+database_name = "マコ-秘書-DB"
+database_id = "a2d2049d-3d80-424d-90d8-451f2341adf3"
