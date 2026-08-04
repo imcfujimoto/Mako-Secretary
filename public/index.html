@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>マコちゃんの秘書</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="app-header">
+    <p class="app-eyebrow">Personal Assistant</p>
+    <h1>マコちゃんの秘書</h1>
+  </header>
+
+  <section class="dashboard" id="dashboard">
+    <div class="dash-card">
+      <div class="dash-icon dash-icon-memo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l5 5v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M15 3v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="dash-body">
+        <div class="dash-value" id="dash-memo-count">0</div>
+        <div class="dash-label">メモ件数</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon dash-icon-task" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.3 2.3L16 9.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="dash-body">
+        <div class="dash-value" id="dash-task-count">0</div>
+        <div class="dash-label">タスク件数</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-icon dash-icon-open" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="dash-body">
+        <div class="dash-value" id="dash-task-open-count">0</div>
+        <div class="dash-label">未完了タスク</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="review-highlight" id="review-highlight">
+    <div class="review-highlight-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16M4 12h16M4 19h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </div>
+    <div class="review-highlight-body">
+      <div class="review-highlight-label">最新の振り返り</div>
+      <div class="review-highlight-week" id="review-highlight-week"></div>
+      <div class="review-highlight-comment" id="review-highlight-comment">まだ振り返りが記録されていません</div>
+    </div>
+  </section>
+
+  <main class="main-grid">
+    <section class="panel">
+      <h2>メモを追加</h2>
+      <form id="memo-form" class="form">
+        <label class="field-label" for="memo-title">タイトル</label>
+        <input type="text" id="memo-title" placeholder="例）来週の会議メモ" required>
+        <label class="field-label" for="memo-priority">重要度</label>
+        <select id="memo-priority">
+          <option value="S">S(最重要)</option>
+          <option value="A">A</option>
+          <option value="B" selected>B</option>
+          <option value="C">C</option>
+        </select>
+        <div class="form-row">
+          <div class="form-col">
+            <label class="field-label" for="memo-start">開始時刻</label>
+            <input type="datetime-local" id="memo-start">
+          </div>
+          <div class="form-col">
+            <label class="field-label" for="memo-duration">予定時間</label>
+            <input type="text" id="memo-duration" placeholder="例）1時間30分">
+          </div>
+        </div>
+        <label class="field-label" for="memo-body">本文</label>
+        <textarea id="memo-body" placeholder="内容を入力してください" rows="4"></textarea>
+        <button type="submit">メモを追加</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>タスクを追加</h2>
+      <form id="task-form" class="form">
+        <label class="field-label" for="task-title">タスク内容</label>
+        <input type="text" id="task-title" placeholder="例）資料を提出する" required>
+        <label class="field-label" for="task-priority">重要度</label>
+        <select id="task-priority">
+          <option value="S">S(最重要)</option>
+          <option value="A">A</option>
+          <option value="B" selected>B</option>
+          <option value="C">C</option>
+        </select>
+        <button type="submit">タスクを追加</button>
+      </form>
+    </section>
+
+    <section class="panel panel-wide">
+      <h2>週次振り返りを記録</h2>
+      <form id="review-form" class="form form-inline">
+        <div class="form-col form-col-narrow">
+          <label class="field-label" for="review-week">対象週(開始日)</label>
+          <input type="date" id="review-week" required>
+        </div>
+        <div class="form-col">
+          <label class="field-label" for="review-comment">振り返りコメント</label>
+          <textarea id="review-comment" placeholder="今週の成果や課題を記入してください" rows="2" required></textarea>
+        </div>
+        <button type="submit">振り返りを記録</button>
+      </form>
+    </section>
+
+    <section class="panel panel-wide">
+      <h2>メモ一覧</h2>
+      <ul class="list" id="memo-list"></ul>
+    </section>
+
+    <section class="panel panel-wide">
+      <h2>タスク一覧</h2>
+      <ul class="list" id="task-list"></ul>
+    </section>
+
+    <section class="panel panel-wide">
+      <h2>振り返り一覧</h2>
+      <ul class="list" id="review-list"></ul>
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
